@@ -7,7 +7,7 @@ class TailPiece(gameObject):
     def __init__(self, x, y):
         super().__init__(x, y) # Super ctor with x y coord of tail piece
 
-    def toString(self):
+    def __repr__(self):
         return "TailPiece: (%d, %d)" % (self.x, self.y)
 
     # Draw tail piece
