@@ -119,6 +119,7 @@ class PositionSearchProblem(SearchProblem):
 			if nextx < 0 or nextx >= len(self.board) or nexty < 0 or nexty >= len(self.board):
 				continue
 
-			successors.append((nextx, nexty))
+			cost = self.costFn((nextx, nexty))
+			successors.append(((nextx, nexty), action, cost))
 
 		return successors
