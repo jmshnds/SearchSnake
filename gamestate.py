@@ -1,4 +1,5 @@
 
+from random import randint
 from direction import Direction
 from snake import Snake
 from food import Food
@@ -51,3 +52,11 @@ class GameState:
 
 	def getBoard(self):
 		return self.board
+
+	def moveFood(self):
+		# Place food at random location that is not occupied
+		while self.food.x == self.player.x or self.food.y == self.player.y:
+			self.food.x = randint(0, len(self.board)-1)
+			self.food.y = randint(0, len(self.board)-1)
+
+		self.board[self.food.y][self.food.x] = 2
