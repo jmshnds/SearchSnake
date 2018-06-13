@@ -19,7 +19,6 @@ class GameState:
 
 		# place snake and food on board
 		for tailPiece in self.player.tail:
-			print(tailPiece)
 			self.board[tailPiece.y][tailPiece.x] = 1
 
 		self.board[self.food.y][self.food.x] = 2
@@ -27,11 +26,11 @@ class GameState:
 	def frame_step(self, input_actions):
 		self.player.changeDirection(input_actions)
 
+		self.player.move()
+
 		if self.player.hasEaten(self.food):
 			self.score += 1
-			# move food
-
-		self.player.move()
+			self.player.grow(2)
 		
 		# Update game board (Note: x and y coordinates are flipped)
 		tailPos = [(tailPiece.x, tailPiece.y) for tailPiece in self.player.tail]

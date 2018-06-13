@@ -59,7 +59,6 @@ class Snake(gameObject):
     def hasEaten(self, food):
         if self.x == food.x and self.y == food.y:
             if not food.isPoison:
-                self.grow(2)
                 return True
             else:
                 return False
