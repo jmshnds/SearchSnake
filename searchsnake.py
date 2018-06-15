@@ -5,6 +5,7 @@ from searchproblem import PositionSearchProblem
 from util import manhattanDistance
 import pygame
 import search
+import sys
 
 BOARD_SIZE = 25
 NUMBER_OF_SEARCHES = 10 # Number of times snake will search for food
@@ -16,7 +17,13 @@ draw = pygame.draw
 screen = pygame.display.set_mode((BOARD_SIZE*BLOCK_S, BOARD_SIZE*BLOCK_S))
 pygame.display.set_caption("Search Snake")
 
+def process_args():
+	for arg in sys.argv[1:]:
+		print(arg)
+
 if __name__ == '__main__':
+	options = process_args()
+
 	# Set up game
 	snakePos = (2, 0)
 	foodPos = (3, 2)
