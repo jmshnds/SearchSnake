@@ -1,5 +1,6 @@
 from util import Stack
 from util import Queue
+from util import PriorityQueue
 
 class Node:
 	def __init__(self, state, parent=None, action=None, path_cost=0):
@@ -31,14 +32,17 @@ def graphSearch(problem, fringe):
 	startState = problem.getStartState()
 	fringe.push(Node(startState))
 	visited = set()
+	expanded = 0
 
 	while not fringe.isEmpty():
 		node = fringe.pop()
 		if problem.isGoalState(node.state):
+			print("Expanded %d nodes!" % (expanded)) # for debugging
 			return node.nodePath()
 		if not node.state in visited:
 			visited.add(node.state)
 			nextNodes = node.expand(problem)
+			expanded += 1
 
 			for nextNode in nextNodes:
 				fringe.push(nextNode)
@@ -48,3 +52,6 @@ def depthFirstSearch(problem):
 
 def breadthFirstSearch(problem):
 	return graphSearch(problem, Queue())
+
+def greedySearch(problem, func):
+	return graphSearch(problem, PriorityQueue(func))

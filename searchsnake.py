@@ -2,6 +2,7 @@
 from colors import Color
 from gamestate import GameState
 from searchproblem import PositionSearchProblem
+from util import manhattanDistance
 import pygame
 import search
 
@@ -30,7 +31,10 @@ if __name__ == '__main__':
 	for search_num in range(NUMBER_OF_SEARCHES):
 		# Get resulting path nodes from performing a search
 		problem = PositionSearchProblem(game)
-		path_nodes = search.breadthFirstSearch(problem)
+
+		#path_nodes = search.depthFirstSearch(problem)
+		#path_nodes = search.breadthFirstSearch(problem)
+		path_nodes = search.greedySearch(problem, lambda node: manhattanDistance(node.state, (game.food.x, game.food.y)))
 
 		# Print path nodes
 		'''
