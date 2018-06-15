@@ -4,3 +4,4 @@ This program was originally inspired by Pacman Project 1 from CS188 at UCB: http
 
 ## Usage
 Currently supports depth first search, breadth first search, and greedy search. <br/>
+Run program with `python searchsnake.py`<br/>
