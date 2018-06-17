@@ -18,11 +18,20 @@ screen = pygame.display.set_mode((BOARD_SIZE*BLOCK_S, BOARD_SIZE*BLOCK_S))
 pygame.display.set_caption("Search Snake")
 
 def process_args():
+	options = {'searchFunc': search.depthFirstSearch,
+				'supplementFunc': False}
 	for arg in sys.argv[1:]:
-		print(arg)
+		if arg == 'dfs':
+			options['searchFunc'] = search.depthFirstSearch
+		elif arg == 'bfs':
+			options['searchFunc'] = search.breadthFirstSearch
+		elif arg == 'greedy':
+			options['searchFunc'] = search.greedySearch
+			options['supplementFunc'] = True
+	return options
 
 if __name__ == '__main__':
-	options = process_args()
+	options = process_args() # Get search type
 
 	# Set up game
 	snakePos = (2, 0)
@@ -34,14 +43,19 @@ if __name__ == '__main__':
 	# Set up initial gamestate 
 	game = GameState(snakePos, foodPos, board)
 
+	suppFunc = lambda node: manhattanDistance(node.state, (game.food.x, game.food.y))
+
 	# Repeat search n times
 	for search_num in range(NUMBER_OF_SEARCHES):
-		# Get resulting path nodes from performing a search
+		# Set up search problem
 		problem = PositionSearchProblem(game)
 
-		#path_nodes = search.depthFirstSearch(problem)
-		#path_nodes = search.breadthFirstSearch(problem)
-		path_nodes = search.greedySearch(problem, lambda node: manhattanDistance(node.state, (game.food.x, game.food.y)))
+		# Get resulting path nodes from performing a search
+		#path_nodes = search.greedySearch(problem, lambda node: manhattanDistance(node.state, (game.food.x, game.food.y)))
+		if not options['supplementFunc']:
+			path_nodes = options['searchFunc'](problem)
+		else:
+			path_nodes = options['searchFunc'](problem, suppFunc)
 
 		# Print path nodes
 		'''
